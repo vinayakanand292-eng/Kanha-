@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Special Friendship Page 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#141e30,#243b55,#6a3093);
+color:white;
+overflow:hidden;
+text-align:center;
+}
+
+.page{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+}
+
+.active{display:flex;}
+
+button{
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+#yesBtn{background:green;color:white;}
+#noBtn{background:red;color:white;position:relative;}
+
+input, textarea{
+width:80%;
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
+}
+
+/* hearts */
+.heart{
+position:absolute;
+top:-10px;
+color:pink;
+font-size:20px;
+animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(0);}
+100%{transform:translateY(110vh);}
+}
+
+/* popup */
+#popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
+display:none;
+z-index:10;
+}
+
+/* typing animation */
+.typing{
+border-right:3px solid white;
+white-space:nowrap;
+overflow:hidden;
+display:inline-block;
+animation:blink 0.7s infinite;
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+<h2 class="typing" id="t1"></h2>
+<button id="yesBtn" onclick="next(2)">Yes</button>
+<button id="noBtn" onmouseover="moveNo()">No</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+<h2 class="typing" id="t2"></h2>
+<p>Aap meri life ka sabse important hissa ho ✨</p>
+<p>Aapke bina sab incomplete lagta hai 💫</p>
+<button onclick="next(3)">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+<h2>💌 Shayari</h2>
+<p>
+Dosti naam hai sukoon ka,<br>
+Jo har dard mita deti hai,<br>
+Aap jaise dost mil jaye toh,<br>
+Zindagi muskura deti hai ❤️
+</p>
+<button onclick="next(4)">Next</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+<h2>I love youu soo much bhaiya 💙</h2>
+<p>Respect + Love always 😊</p>
+<button onclick="next(5)">Next</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+<h2>Send Reply 💌</h2>
+
+<input type="text" placeholder="Apka naam">
+<textarea rows="4" placeholder="Apna message likhiye..."></textarea>
+
+<button onclick="send()">Send Reply</button>
+<button onclick="hug()">🤗 Hug</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="p6">
+<h2>💙 Ek Kavita 💙</h2>
+
+<p>
+Rishton ki duniya mein,<br>
+Ek rishta khas hota hai,<br>
+Jo bina matlab ke bhi,<br>
+Dil ke paas hota hai 💫<br><br>
+
+Aap jaise dost mil jaye,<br>
+Toh har din khaas lagta hai ❤️
+</p>
+
+<h3>Thank You 💕</h3>
+</div>
+
+<!-- POPUP -->
+<div id="popup">🤗 Sending Virtual Hug... 💖</div>
+
+<script>
+
+let t1Text = "Kya aap mere sath hamesha rahoge? 💙";
+let t2Text = "Mere favourite dost ki value 💖";
+
+function typeText(id, text, i=0){
+if(i < text.length){
+document.getElementById(id).innerHTML += text.charAt(i);
+setTimeout(()=>typeText(id,text,i+1),50);
+}
+}
+
+typeText("t1", t1Text);
+
+function next(n){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('p'+n).classList.add('active');
+
+if(n==2) typeText("t2", t2Text);
+}
+
+// moving no button
+function moveNo(){
+let btn=document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.top=Math.random()*80+"vh";
+btn.style.left=Math.random()*80+"vw";
+}
+
+// send
+function send(){
+alert("Message Sent Successfully 💌");
+}
+
+// hug
+function hug(){
+let popup=document.getElementById("popup");
+popup.style.display="block";
+setTimeout(()=>popup.style.display="none",3000);
+}
+
+// hearts
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(15+Math.random()*20)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},300);
+
+</script>
+
+</body>
+</html>
