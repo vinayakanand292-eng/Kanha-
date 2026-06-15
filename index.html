@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Special Friendship Page 💙</title>
+<title>Glow Friendship Page 💙</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#141e30,#243b55,#6a3093);
-color:white;
 overflow:hidden;
 text-align:center;
+color:white;
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#6a11cb);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
 }
 
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* glass page */
 .page{
 display:none;
 height:100vh;
@@ -22,41 +31,68 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 padding:20px;
+backdrop-filter: blur(10px);
 }
 
 .active{display:flex;}
 
-button{
-padding:12px 20px;
-margin:10px;
-border:none;
-border-radius:10px;
-font-size:18px;
-cursor:pointer;
+/* glow card */
+.glass{
+background:rgba(255,255,255,0.1);
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,255,255,0.2);
+border:1px solid rgba(255,255,255,0.2);
 }
 
-#yesBtn{background:green;color:white;}
-#noBtn{background:red;color:white;position:relative;}
+/* glow buttons */
+button{
+padding:12px 22px;
+margin:10px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 10px rgba(255,255,255,0.3);
+}
 
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #fff;
+}
+
+#yesBtn{
+background:#00ff88;
+color:black;
+}
+
+#noBtn{
+background:#ff4d4d;
+color:white;
+position:relative;
+}
+
+/* inputs */
 input, textarea{
 width:80%;
 padding:10px;
 margin:10px;
 border-radius:10px;
 border:none;
+outline:none;
 }
 
 /* hearts */
 .heart{
 position:absolute;
 top:-10px;
-color:pink;
+color:#ffb6ff;
 font-size:20px;
 animation:fall 5s linear infinite;
 }
 
 @keyframes fall{
-0%{transform:translateY(0);}
 100%{transform:translateY(110vh);}
 }
 
@@ -74,17 +110,19 @@ display:none;
 z-index:10;
 }
 
-/* typing animation */
-.typing{
-border-right:3px solid white;
-white-space:nowrap;
-overflow:hidden;
-display:inline-block;
-animation:blink 0.7s infinite;
+/* confetti */
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+top:-10px;
+animation:confettiFall 3s linear forwards;
 }
 
-@keyframes blink{
-50%{border-color:transparent;}
+@keyframes confettiFall{
+to{
+transform:translateY(110vh) rotate(720deg);
+}
 }
 </style>
 </head>
@@ -92,92 +130,103 @@ animation:blink 0.7s infinite;
 <body>
 
 <!-- PAGE 1 -->
-<div class="page active" id="p1">
-<h2 class="typing" id="t1"></h2>
-<button id="yesBtn" onclick="next(2)">Yes</button>
-<button id="noBtn" onmouseover="moveNo()">No</button>
+<div class="page active">
+<div class="glass">
+<h2 id="t1"></h2>
+<button id="yesBtn" onclick="yesAction()">Yes 💚</button>
+<button id="noBtn" onmouseover="moveNo()">No 💔</button>
+</div>
 </div>
 
 <!-- PAGE 2 -->
-<div class="page" id="p2">
-<h2 class="typing" id="t2"></h2>
-<p>Aap meri life ka sabse important hissa ho ✨</p>
-<p>Aapke bina sab incomplete lagta hai 💫</p>
-<button onclick="next(3)">Next</button>
+<div class="page">
+<div class="glass">
+<h2 id="t2"></h2>
+<p>Aap meri life ka sabse bright part ho ✨</p>
+<button onclick="next(2)">Next</button>
+</div>
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="p3">
+<div class="page">
+<div class="glass">
 <h2>💌 Shayari</h2>
 <p>
-Dosti naam hai sukoon ka,<br>
-Jo har dard mita deti hai,<br>
-Aap jaise dost mil jaye toh,<br>
-Zindagi muskura deti hai ❤️
+Dosti ek roshni hai 💡<br>
+Jo andhere mein bhi saath chalti hai ❤️
 </p>
-<button onclick="next(4)">Next</button>
+<button onclick="next(3)">Next</button>
+</div>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page" id="p4">
+<div class="page">
+<div class="glass">
 <h2>I love youu soo much bhaiya 💙</h2>
-<p>Respect + Love always 😊</p>
-<button onclick="next(5)">Next</button>
+<button onclick="next(4)">Next</button>
+</div>
 </div>
 
 <!-- PAGE 5 -->
-<div class="page" id="p5">
+<div class="page">
+<div class="glass">
 <h2>Send Reply 💌</h2>
 
-<input type="text" placeholder="Apka naam">
-<textarea rows="4" placeholder="Apna message likhiye..."></textarea>
+<input type="text" placeholder="Name">
+<textarea rows="4" placeholder="Message"></textarea>
 
-<button onclick="send()">Send Reply</button>
+<button onclick="send()">Send 💌</button>
 <button onclick="hug()">🤗 Hug</button>
+<button onclick="next(5)">Next</button>
+</div>
 </div>
 
 <!-- PAGE 6 -->
-<div class="page" id="p6">
+<div class="page">
+<div class="glass">
 <h2>💙 Ek Kavita 💙</h2>
 
-<p>
-Rishton ki duniya mein,<br>
-Ek rishta khas hota hai,<br>
-Jo bina matlab ke bhi,<br>
-Dil ke paas hota hai 💫<br><br>
+<p style="line-height:1.8">
+Zindagi ke safar mein kuch rishte khaas hote hain,<br>
+Jo bina bole bhi dil ke paas hote hain 💫<br><br>
 
-Aap jaise dost mil jaye,<br>
-Toh har din khaas lagta hai ❤️
+Woh dosti nahi ek dua hoti hai,<br>
+Jo har pal saath hoti hai ❤️
 </p>
 
 <h3>Thank You 💕</h3>
 </div>
+</div>
 
 <!-- POPUP -->
-<div id="popup">🤗 Sending Virtual Hug... 💖</div>
+<div id="popup">🤗 Hug Sent 💖</div>
 
 <script>
 
-let t1Text = "Kya aap mere sath hamesha rahoge? 💙";
-let t2Text = "Mere favourite dost ki value 💖";
+let t1Text="Kya aap mere sath hamesha rahoge? 💙";
+let t2Text="Mere favourite dost ki value 💖";
 
-function typeText(id, text, i=0){
-if(i < text.length){
-document.getElementById(id).innerHTML += text.charAt(i);
-setTimeout(()=>typeText(id,text,i+1),50);
+function typeText(id,text,i=0){
+if(i<text.length){
+document.getElementById(id).innerHTML+=text.charAt(i);
+setTimeout(()=>typeText(id,text,i+1),40);
 }
 }
 
-typeText("t1", t1Text);
+typeText("t1",t1Text);
+
+function yesAction(){
+next(1);
+startConfetti();
+}
 
 function next(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById('p'+n).classList.add('active');
+document.getElementsByClassName('page')[n].classList.add('active');
 
-if(n==2) typeText("t2", t2Text);
+if(n==1) typeText("t2",t2Text);
 }
 
-// moving no button
 function moveNo(){
 let btn=document.getElementById("noBtn");
 btn.style.position="absolute";
@@ -185,16 +234,26 @@ btn.style.top=Math.random()*80+"vh";
 btn.style.left=Math.random()*80+"vw";
 }
 
-// send
 function send(){
-alert("Message Sent Successfully 💌");
+alert("Message Sent 💌");
 }
 
-// hug
 function hug(){
-let popup=document.getElementById("popup");
-popup.style.display="block";
-setTimeout(()=>popup.style.display="none",3000);
+document.getElementById("popup").style.display="block";
+setTimeout(()=>document.getElementById("popup").style.display="none",3000);
+}
+
+// confetti
+function startConfetti(){
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+c.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+}
 }
 
 // hearts
