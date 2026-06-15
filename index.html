@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Glow Friendship Page 💙</title>
+<title>Friendship Glow 💙</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -10,11 +10,11 @@ body{
 margin:0;
 font-family:Arial;
 overflow:hidden;
-text-align:center;
 color:white;
+text-align:center;
 background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#6a11cb);
 background-size:400% 400%;
-animation:bg 10s ease infinite;
+animation:bg 10s infinite;
 }
 
 @keyframes bg{
@@ -33,12 +33,11 @@ flex-direction:column;
 
 .active{display:flex;}
 
-.glass{
+.box{
 background:rgba(255,255,255,0.1);
 padding:25px;
 border-radius:20px;
 backdrop-filter:blur(10px);
-box-shadow:0 0 20px rgba(255,255,255,0.2);
 }
 
 button{
@@ -48,13 +47,10 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 font-size:18px;
-transition:0.3s;
 }
 
-button:hover{transform:scale(1.1);}
-
-#yesBtn{background:#00ff88;color:black;}
-#noBtn{background:#ff4d4d;color:white;position:relative;}
+#yesBtn{background:#00ff88;}
+#noBtn{background:#ff4d4d;position:relative;}
 
 input,textarea{
 width:80%;
@@ -64,19 +60,6 @@ border-radius:10px;
 border:none;
 }
 
-/* hearts */
-.heart{
-position:absolute;
-top:-10px;
-color:pink;
-animation:fall 5s linear infinite;
-}
-
-@keyframes fall{
-100%{transform:translateY(110vh);}
-}
-
-/* popup */
 #popup{
 position:fixed;
 top:50%;
@@ -87,20 +70,6 @@ color:black;
 padding:20px;
 border-radius:15px;
 display:none;
-z-index:10;
-}
-
-/* confetti */
-.confetti{
-position:fixed;
-width:10px;
-height:10px;
-top:-10px;
-animation:confetti 3s linear forwards;
-}
-
-@keyframes confetti{
-to{transform:translateY(110vh) rotate(720deg);}
 }
 </style>
 </head>
@@ -109,23 +78,24 @@ to{transform:translateY(110vh) rotate(720deg);}
 
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
-<div class="glass">
+<div class="box">
 <h2>Kya aap mere sath hamesha rahoge? 💙</h2>
 
-<button id="yesBtn" onclick="yesAction()">Yes 💚</button>
+<!-- FIXED YES BUTTON -->
+<button onclick="go(2)">Yes 💚</button>
 <button id="noBtn" onmouseover="moveNo()">No 💔</button>
 </div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-<div class="glass">
+<div class="box">
 <h2>💖 Friendship Value</h2>
 <p>
 Dosti ek anmol rishta hota hai,<br>
 Jo dil se dil ko jod deta hai ❤️<br>
 Na waqt dekhta hai na wajah,<br>
-Bas har pal saath reh leta hai 💫
+Bas hamesha saath rehta hai 💫
 </p>
 <button onclick="go(3)">Next</button>
 </div>
@@ -133,17 +103,11 @@ Bas har pal saath reh leta hai 💫
 
 <!-- PAGE 3 -->
 <div class="page" id="p3">
-<div class="glass">
+<div class="box">
 <h2>💌 Shayari</h2>
 <p>
-Dosti wo nahi jo duniya ko dikhayi jaye,<br>
-Dosti wo hai jo dil se nibhayi jaye 💙<br><br>
-
-Door ho ya paas fark nahi padta,<br>
-Sachhi dosti har haal mein nibhayi jaye 🤝<br><br>
-
-Waqt badal jata hai par yaar nahi badalte,<br>
-Sachche dost hamesha yaad rehte hain ❤️
+Dosti wo hai jo kabhi kam nahi hoti 💙<br>
+Door rehkar bhi dil se juda nahi hoti ❤️
 </p>
 <button onclick="go(4)">Next</button>
 </div>
@@ -151,7 +115,7 @@ Sachche dost hamesha yaad rehte hain ❤️
 
 <!-- PAGE 4 -->
 <div class="page" id="p4">
-<div class="glass">
+<div class="box">
 <h2>I love youu soo much bhaiya 💙</h2>
 <button onclick="go(5)">Next</button>
 </div>
@@ -159,7 +123,7 @@ Sachche dost hamesha yaad rehte hain ❤️
 
 <!-- PAGE 5 -->
 <div class="page" id="p5">
-<div class="glass">
+<div class="box">
 <h2>Send Reply 💌</h2>
 
 <input type="text" placeholder="Name">
@@ -172,10 +136,10 @@ Sachche dost hamesha yaad rehte hain ❤️
 
 <!-- PAGE 6 -->
 <div class="page" id="p6">
-<div class="glass">
+<div class="box">
 <h2>💙 Ek Kavita 💙</h2>
 
-<p style="line-height:1.8;font-size:18px">
+<p style="line-height:1.8">
 Zindagi ke safar mein kuch rishte khaas hote hain,<br>
 Jo bina bole bhi dil ke paas hote hain 💫<br><br>
 
@@ -183,7 +147,7 @@ Woh dosti ek dua hoti hai,<br>
 Jo har pal saath hoti hai ❤️<br><br>
 
 Door rehkar bhi jo kabhi door na ho,<br>
-Wahi sachchi dosti ka ehsaas hota hai 💖
+Wahi sachchi dosti hoti hai 💖
 </p>
 
 <h3>Thank You 💕</h3>
@@ -195,18 +159,13 @@ Wahi sachchi dosti ka ehsaas hota hai 💖
 
 <script>
 
+/* ONLY ONE NAV FUNCTION = NO BUG */
 function go(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('p'+n).classList.add('active');
 }
 
-// YES + CONFETTI
-function yesAction(){
-go(2);
-startConfetti();
-}
-
-// NO move
+/* NO BUTTON MOVE */
 function moveNo(){
 let b=document.getElementById("noBtn");
 b.style.position="absolute";
@@ -214,34 +173,11 @@ b.style.top=Math.random()*80+"vh";
 b.style.left=Math.random()*80+"vw";
 }
 
-// hug
+/* HUG */
 function hug(){
 document.getElementById("popup").style.display="block";
 setTimeout(()=>document.getElementById("popup").style.display="none",3000);
 }
-
-// confetti
-function startConfetti(){
-for(let i=0;i<80;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-c.style.animationDuration=(Math.random()*2+2)+"s";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),4000);
-}
-}
-
-// hearts
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
-},300);
 
 </script>
 
