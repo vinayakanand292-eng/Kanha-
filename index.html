@@ -29,7 +29,6 @@ height:100vh;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-padding:20px;
 }
 
 .active{display:flex;}
@@ -39,6 +38,7 @@ background:rgba(255,255,255,0.1);
 padding:25px;
 border-radius:20px;
 backdrop-filter:blur(10px);
+box-shadow:0 0 20px rgba(255,255,255,0.2);
 }
 
 button{
@@ -47,10 +47,22 @@ margin:10px;
 border:none;
 border-radius:10px;
 cursor:pointer;
+font-size:18px;
+transition:0.3s;
 }
 
-#yesBtn{background:#00ff88;}
-#noBtn{background:#ff4d4d;position:relative;}
+button:hover{transform:scale(1.1);}
+
+#yesBtn{background:#00ff88;color:black;}
+#noBtn{background:#ff4d4d;color:white;position:relative;}
+
+input,textarea{
+width:80%;
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
+}
 
 /* hearts */
 .heart{
@@ -75,6 +87,20 @@ color:black;
 padding:20px;
 border-radius:15px;
 display:none;
+z-index:10;
+}
+
+/* confetti */
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+top:-10px;
+animation:confetti 3s linear forwards;
+}
+
+@keyframes confetti{
+to{transform:translateY(110vh) rotate(720deg);}
 }
 </style>
 </head>
@@ -85,7 +111,8 @@ display:none;
 <div class="page active" id="p1">
 <div class="glass">
 <h2>Kya aap mere sath hamesha rahoge? 💙</h2>
-<button id="yesBtn" onclick="next(1)">Yes 💚</button>
+
+<button id="yesBtn" onclick="yesAction()">Yes 💚</button>
 <button id="noBtn" onmouseover="moveNo()">No 💔</button>
 </div>
 </div>
@@ -93,9 +120,14 @@ display:none;
 <!-- PAGE 2 -->
 <div class="page" id="p2">
 <div class="glass">
-<h2>Mere favourite dost ki value 💖</h2>
-<p>Aap meri life ka sab kuch ho ✨</p>
-<button onclick="next(2)">Next</button>
+<h2>💖 Friendship Value</h2>
+<p>
+Dosti ek anmol rishta hota hai,<br>
+Jo dil se dil ko jod deta hai ❤️<br>
+Na waqt dekhta hai na wajah,<br>
+Bas har pal saath reh leta hai 💫
+</p>
+<button onclick="go(3)">Next</button>
 </div>
 </div>
 
@@ -104,10 +136,16 @@ display:none;
 <div class="glass">
 <h2>💌 Shayari</h2>
 <p>
-Dosti ek roshni hai 💡<br>
-Jo har andhere mein saath deti hai ❤️
+Dosti wo nahi jo duniya ko dikhayi jaye,<br>
+Dosti wo hai jo dil se nibhayi jaye 💙<br><br>
+
+Door ho ya paas fark nahi padta,<br>
+Sachhi dosti har haal mein nibhayi jaye 🤝<br><br>
+
+Waqt badal jata hai par yaar nahi badalte,<br>
+Sachche dost hamesha yaad rehte hain ❤️
 </p>
-<button onclick="next(3)">Next</button>
+<button onclick="go(4)">Next</button>
 </div>
 </div>
 
@@ -115,7 +153,7 @@ Jo har andhere mein saath deti hai ❤️
 <div class="page" id="p4">
 <div class="glass">
 <h2>I love youu soo much bhaiya 💙</h2>
-<button onclick="next(4)">Next</button>
+<button onclick="go(5)">Next</button>
 </div>
 </div>
 
@@ -127,12 +165,12 @@ Jo har andhere mein saath deti hai ❤️
 <input type="text" placeholder="Name">
 <textarea rows="4" placeholder="Message"></textarea>
 
-<button onclick="next(5)">Next</button>
+<button onclick="go(6)">Next</button>
 <button onclick="hug()">🤗 Hug</button>
 </div>
 </div>
 
-<!-- PAGE 6 (KAVITA 100% VISIBLE) -->
+<!-- PAGE 6 -->
 <div class="page" id="p6">
 <div class="glass">
 <h2>💙 Ek Kavita 💙</h2>
@@ -141,11 +179,11 @@ Jo har andhere mein saath deti hai ❤️
 Zindagi ke safar mein kuch rishte khaas hote hain,<br>
 Jo bina bole bhi dil ke paas hote hain 💫<br><br>
 
-Woh dosti nahi ek ehsaas hota hai,<br>
-Jo har pal dil ke paas hota hai ❤️<br><br>
+Woh dosti ek dua hoti hai,<br>
+Jo har pal saath hoti hai ❤️<br><br>
 
 Door rehkar bhi jo kabhi door na ho,<br>
-Wahi sachchi dosti ka nishaan hota hai 💖
+Wahi sachchi dosti ka ehsaas hota hai 💖
 </p>
 
 <h3>Thank You 💕</h3>
@@ -157,16 +195,18 @@ Wahi sachchi dosti ka nishaan hota hai 💖
 
 <script>
 
-function show(n){
+function go(n){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('p'+n).classList.add('active');
 }
 
-function next(n){
-show(n);
+// YES + CONFETTI
+function yesAction(){
+go(2);
+startConfetti();
 }
 
-// NO button move
+// NO move
 function moveNo(){
 let b=document.getElementById("noBtn");
 b.style.position="absolute";
@@ -178,6 +218,19 @@ b.style.left=Math.random()*80+"vw";
 function hug(){
 document.getElementById("popup").style.display="block";
 setTimeout(()=>document.getElementById("popup").style.display="none",3000);
+}
+
+// confetti
+function startConfetti(){
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+c.style.animationDuration=(Math.random()*2+2)+"s";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+}
 }
 
 // hearts
