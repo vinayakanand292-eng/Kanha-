@@ -52,24 +52,17 @@ font-size:18px;
 transition:0.3s;
 }
 
-button:hover{
-transform:scale(1.1);
-box-shadow:0 0 15px white;
-}
+button:hover{transform:scale(1.1);}
 
 #yesBtn{background:#00ff99;color:black;}
 #noBtn{background:#ff4d4d;position:relative;}
 
-/* hearts */
-.heart{
-position:absolute;
-top:-10px;
-color:#ffb6ff;
-animation:fall 5s linear infinite;
-}
-
-@keyframes fall{
-100%{transform:translateY(110vh);}
+input,textarea{
+width:80%;
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
 }
 
 /* popup */
@@ -83,21 +76,6 @@ color:black;
 padding:20px;
 border-radius:15px;
 display:none;
-}
-
-/* confetti */
-.confetti{
-position:fixed;
-width:10px;
-height:10px;
-top:-10px;
-animation:confetti 3s linear forwards;
-}
-
-@keyframes confetti{
-to{
-transform:translateY(110vh) rotate(720deg);
-}
 }
 </style>
 </head>
@@ -116,13 +94,19 @@ transform:translateY(110vh) rotate(720deg);
 <!-- PAGE 2 -->
 <div class="page" id="p2">
 <div class="glass">
-<h2>💖 Friendship Value</h2>
+<h2>💖 KANHA mere liye bohot khaas ho</h2>
 <p>
-Dosti wo nahi jo sirf baaton mein ho,<br>
-Dosti wo hai jo har haal mein saath ho ❤️<br><br>
+KANHA tum meri life ka wo hissa ho jo kabhi replace nahi ho sakta 💙<br><br>
 
-Jo khamoshi ko bhi samajh le,<br>
-Wahi sachha yaar hota hai 💫
+Tumhari smile mere din ko roshan karti hai ✨<br>
+Tumhari baatein mere dil ko sukoon deti hain ❤️<br>
+Tumhari presence hi mere liye sab kuch hai 💫<br><br>
+
+Sach kahun to tum sirf dost nahi ho,<br>
+Tum ek emotion ho jo har waqt mere saath rehta hai 🤝<br><br>
+
+Tum jaisa insaan milna bohot rare hota hai,<br>
+Isliye tum mere liye bohot special ho 💖
 </p>
 <button onclick="go(3)">Next</button>
 </div>
@@ -132,12 +116,19 @@ Wahi sachha yaar hota hai 💫
 <div class="page" id="p3">
 <div class="glass">
 <h2>💌 Shayari</h2>
-<p>
-Na doori ka gham na majboori ka ehsaas,<br>
-Sachhi dosti hoti hai sabse khaas 💙<br><br>
+<p style="line-height:1.8;font-size:16px">
 
-Dil se jo dil tak jaye,<br>
-Wahi rishte zindagi ban jaye ❤️
+Dosti sirf naam nahi ek ehsaas hota hai,<br>
+Jo har waqt dil ke paas hota hai 💙<br><br>
+
+Na doori se farq padta hai na faaslon se,<br>
+Sachha dost har haal mein saath hota hai ❤️<br><br>
+
+Jo bina bole sab samajh le,<br>
+Wahi zindagi ka sabse pyara rishta hota hai 💫<br><br>
+
+Waqt badal jata hai par yaari nahi badalti,<br>
+Aur yaadon mein bas wahi insaan rehta hai jo dil ke kareeb hota hai 🤝
 </p>
 <button onclick="go(4)">Next</button>
 </div>
@@ -211,30 +202,28 @@ document.getElementById("popup").style.display="block";
 setTimeout(()=>document.getElementById("popup").style.display="none",3000);
 }
 
-/* CONFETTI */
 function startConfetti(){
-for(let i=0;i<80;i++){
+for(let i=0;i<60;i++){
 let c=document.createElement("div");
-c.className="confetti";
+c.style.position="fixed";
+c.style.width="8px";
+c.style.height="8px";
+c.style.top="-10px";
 c.style.left=Math.random()*100+"vw";
-c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
-c.style.animationDuration=(Math.random()*2+2)+"s";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+c.style.animation="fall 3s linear forwards";
 document.body.appendChild(c);
-setTimeout(()=>c.remove(),4000);
+setTimeout(()=>c.remove(),3000);
 }
 }
-
-/* HEARTS */
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
-},300);
 
 </script>
+
+<style>
+@keyframes fall{
+to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
 
 </body>
 </html>
